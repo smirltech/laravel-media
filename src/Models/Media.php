@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 /**
  * @property mixed $location
+ * @property array $custom_properties
  */
 class Media extends Model
 {
@@ -23,11 +24,27 @@ class Media extends Model
         'custom_properties' => 'array',
     ];
 
+    public function mediable(): MorphTo
+    {
+        return $this->model();
+    }
 
     public function model(): MorphTo
     {
         return $this->morphTo();
     }
+
+    /**
+     * Set custom_property attribute for backward compatibility
+     * @return string
+     */
+    public function setCustomPropertyAttribute($value): string
+    {
+        $this->custom_properties[] = $value;
+        $this->save();
+
+    }
+
 
     public function getPathAttribute(): string
     {

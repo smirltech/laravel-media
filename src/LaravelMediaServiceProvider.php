@@ -2,24 +2,12 @@
 
 namespace SmirlTech\LaravelMedia;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use SmirlTech\LaravelMedia\Commands\LaravelMediaCommand;
+use Illuminate\Support\ServiceProvider;
 
-class LaravelMediaServiceProvider extends PackageServiceProvider
+class LaravelMediaServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public function boot()
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
-        $package
-            ->name('laravel-media')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-media_table')
-            ->hasCommand(LaravelMediaCommand::class);
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 }

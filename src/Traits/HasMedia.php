@@ -29,15 +29,18 @@ trait HasMedia
 
     // set image attribute
 
-    public function media(): MorphMany
+
+    public function media()
     {
-        return $this->morphMany(Media::class, 'mediable');
+        return $this->morphMany(Media::class, 'model');
     }
 
     public function getImageUrlAttribute(): string
     {
         return $this->getFirstMediaUrl();
     }
+
+    // get first media url
 
     public function getFirstMediaUrl(): string
     {
@@ -46,14 +49,12 @@ trait HasMedia
         return $media ? $media->getUrl() : '';
     }
 
-    // get first media url
+    // get first media
 
     public function getFirstMedia(): null|Media|MorphMany
     {
         return $this->media()->first();
     }
-
-    // get first media
 
     public function getImageAttribute(): array
     {
@@ -89,5 +90,10 @@ trait HasMedia
         }
     }
 
+    public function getImageSmallAttribute(): string
+    {
+        $first_image = $this->media()->latest()->first();
 
+        return $first_image ? $first_image->path : asset('images/no-image.png');
+    }
 }
