@@ -1,17 +1,17 @@
 {
     "name": "smirltech/laravel-media",
-    "description": "Associate media with your eloquent models",
+    "description": "Associate files to with eloquent models",
     "keywords": [
-        ":vendor_name",
+        "SmirlTech",
         "laravel",
-        ":package_slug"
+        "laravel-media"
     ],
     "homepage": "https://github.com/smirltech/laravel-media",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Marien Mupenda",
+            "email": "marien@smirltech.com",
             "role": "Developer"
         }
     ],
@@ -23,25 +23,20 @@
     "require-dev": {
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^6.0",
-        "nunomaduro/larastan": "^2.0.1",
         "orchestra/testbench": "^7.0",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.1",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5",
-        "spatie/laravel-ray": "^1.26"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "SmirlTech\\LaravelMedia\\": "src",
+            "SmirlTech\\LaravelMedia\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "SmirlTech\\LaravelMedia\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -61,10 +56,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "SmirlTech\\LaravelMedia\\LaravelMediaServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelMedia": "SmirlTech\\LaravelMedia\\Facades\\LaravelMedia"
             }
         }
     },
