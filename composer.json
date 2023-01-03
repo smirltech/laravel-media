@@ -1,12 +1,12 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "smirltech/laravel-media",
+    "description": "Associate media with your eloquent models",
     "keywords": [
         ":vendor_name",
         "laravel",
         ":package_slug"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/smirltech/laravel-media",
     "license": "MIT",
     "authors": [
         {
