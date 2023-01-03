@@ -27,6 +27,7 @@ trait HasMedia
         ]);
     }
 
+
     // set image attribute
 
 
