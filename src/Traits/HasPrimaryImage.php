@@ -5,14 +5,14 @@ namespace SmirlTech\LaravelMedia\Traits;
 
 use SmirlTech\LaravelMedia\Models\Media;
 
-trait HasPrimaryMedia
+trait HasPrimaryImage
 {
 
     /**
      * Set the primary media for the model.
      * @return mixed
      */
-    public function setPrimaryMedia(Media $media): mixed
+    public function setPrimaryImage(Media $media): mixed
     {
         return $this->media_id = $media->id;
     }
@@ -21,16 +21,16 @@ trait HasPrimaryMedia
      * Get the primary media url for the model.
      * @return mixed
      */
-    public function getPrimaryMediaUrl(): mixed
+    public function getPrimaryImageUrl(): mixed
     {
-        return $this->getPrimaryMedia()->getUrl();
+        return $this->getPrimaryImage()->getUrl();
     }
 
     /**
      * Get the primary media for the model.
      * @return mixed
      */
-    public function getPrimaryMedia(): mixed
+    public function getPrimaryImage(): mixed
     {
         return Media::find($this->media_id);
     }
@@ -39,7 +39,7 @@ trait HasPrimaryMedia
      * Clear the primary media for the model.
      * @return mixed
      */
-    public function clearPrimaryMedia(): mixed
+    public function clearPrimaryImage(): mixed
     {
         return $this->media_id = null;
     }

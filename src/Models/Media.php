@@ -2,6 +2,7 @@
 
 namespace SmirlTech\LaravelMedia\Models;
 
+use App\Traits\ImageResizer;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class Media extends Model
 {
-    use HasUlids;
+    use HasUlids, ImageResizer;
 
     protected $guarded = [];
 
