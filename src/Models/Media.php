@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Storage;
+use Nette\Utils\Json;
 use SmirlTech\LaravelMedia\Traits\HasResizeImage;
 
 
@@ -39,11 +40,9 @@ class Media extends Model
      * Set custom_property attribute for backward compatibility
      * @return string
      */
-    public function setCustomPropertyAttribute($value): string
+    public function setCustomPropertyAttribute($value): void
     {
-        $this->custom_properties[] = $value;
-        $this->save();
-
+        $this->attributes['custom_properties'] = Json::encode($value);
     }
 
 

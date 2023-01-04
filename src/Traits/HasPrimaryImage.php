@@ -27,12 +27,12 @@ trait HasPrimaryImage
         return $this->media_id = null;
     }
 
-    public function getCoverAttribute(): ?string
+    public function getCoverAttribute(): ?Media
     {
         if ($this->media_id) {
-            return $this->media()->findOrFail($this->media_id)->getUrl();
+            return $this->media()->findOrFail($this->media_id);
         } else {
-            return $this->getFirstMediaUrl();
+            return $this->getFirstMedia();
         }
     }
 

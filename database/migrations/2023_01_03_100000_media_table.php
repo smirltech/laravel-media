@@ -12,11 +12,11 @@ return new class extends Migration {
 
             $table->morphs('model');
             $table->string('mime_type');
-            
+
             $table->string('filename');
             $table->string('location');
             $table->json('custom_properties')->nullable();
-            $table->string('collection_name');
+            $table->string('collection_name')->default('default');
             $table->string('size')->nullable();
 
             $table->timestamps();
