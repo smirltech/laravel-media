@@ -11,8 +11,10 @@ use SmirlTech\LaravelMedia\Traits\HasResizeImage;
 
 
 /**
- * @property mixed $location
+ * @property string $location
  * @property array $custom_properties
+ * @property string $filename
+ * @property string $mime_type
  */
 class Media extends Model
 {
