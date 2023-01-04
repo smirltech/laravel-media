@@ -1,6 +1,8 @@
-@props(['disabled' => false])
-
-<button {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'btn btn-primary']) !!}>
-    {{ $slot }}
-    <x-laravel-media::loading target="submit"/>
+<button {!! $attributes->merge(['class' => 'btn']) !!}>
+    {{$slot}}
+    <x-laravel-media::loading target="save"/>
 </button>
+
+
+
+
