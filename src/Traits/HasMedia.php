@@ -31,9 +31,14 @@ trait HasMedia
     // set image attribute
 
 
-    public function media()
+    public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'model');
+    }
+
+    public function medias(): MorphMany
+    {
+        return $this->media();
     }
 
     public function getImageUrlAttribute(): string
