@@ -50,13 +50,7 @@ class Media extends Model
 
     public function getPathAttribute(): string
     {
-        return $this->getUrlAttribute();
-    }
-
-    public function getUrlAttribute(): string
-    {
-        return Storage::disk('public')->url($this->location);
-
+        return Storage::disk('public')->path($this->location);
     }
 
     public function delete(): ?bool
@@ -69,11 +63,15 @@ class Media extends Model
 
     }
 
-    // get Url
-
     public function getUrl(): string
     {
         return $this->getUrlAttribute();
+    }
+
+    public function getUrlAttribute(): string
+    {
+        return Storage::disk('public')->url($this->location);
+
     }
 
     // get directory
