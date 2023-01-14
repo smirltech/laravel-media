@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^9.0",
+        "illuminate/contracts": "^9.0",
         "intervention/image": "^2.7",
         "livewire/livewire": "^2.10",
         "spatie/laravel-package-tools": "^1.14"
