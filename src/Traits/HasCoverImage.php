@@ -5,7 +5,7 @@ namespace SmirlTech\LaravelMedia\Traits;
 
 use SmirlTech\LaravelMedia\Models\Media;
 
-trait HasPrimaryImage
+trait HasCoverImage
 {
     use HasMedia;
 
@@ -13,7 +13,7 @@ trait HasPrimaryImage
      * Set the primary media for the model.
      * @return mixed
      */
-    public function setPrimaryImage(Media $media): mixed
+    public function setCoverImage(Media $media): mixed
     {
         return $this->media_id = $media->id;
     }
@@ -22,15 +22,15 @@ trait HasPrimaryImage
      * Clear the primary media for the model.
      * @return mixed
      */
-    public function clearPrimaryImage(): mixed
+    public function clearCoverImage(): mixed
     {
         return $this->media_id = null;
     }
 
-    public function getCoverAttribute(): ?Media
+    public function getCoverImageAttribute(): ?Media
     {
         if ($this->media_id) {
-            return $this->media()->findOrFail($this->media_id);
+            return $this->media()->image()->findOrFail($this->media_id);
         } else {
             return $this->getFirstMedia();
         }
