@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Storage;
 use Nette\Utils\Json;
+use Nette\Utils\JsonException;
 use SmirlTech\LaravelMedia\Traits\HasResizeImage;
 
 
@@ -33,14 +34,23 @@ class Media extends Model
         return $this->model();
     }
 
+
     public function model(): MorphTo
     {
         return $this->morphTo();
     }
 
+    /** get media where mime type is image */
+    public function scopeImages($query)
+    {
+        return $query->where('mime_type', 'like', 'image/%');
+    }
+
     /**
      * Set custom_property attribute for backward compatibility
-     * @return string
+     * @param $value
+     * @return void
+     * @throws JsonException
      */
     public function setCustomPropertyAttribute($value): void
     {
