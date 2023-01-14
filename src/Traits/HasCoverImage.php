@@ -3,6 +3,9 @@
 namespace SmirlTech\LaravelMedia\Traits;
 
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use SmirlTech\LaravelMedia\Models\Media;
 
 trait HasCoverImage
@@ -27,10 +30,10 @@ trait HasCoverImage
         return $this->media_id = null;
     }
 
-    public function getCoverImageAttribute(): ?Media
+    public function getCoverImageAttribute(): Collection|Model|MorphMany|array|null
     {
         if ($this->media_id) {
-            return $this->media()->image()->findOrFail($this->media_id);
+            return $this->media()->findOrFail($this->media_id);
         } else {
             return $this->getFirstMedia();
         }

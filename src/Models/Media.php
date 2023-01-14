@@ -75,13 +75,17 @@ class Media extends Model
 
     public function getUrl(): string
     {
-        return $this->getUrlAttribute();
+        return Storage::disk('public')->url($this->location);
     }
 
     public function getUrlAttribute(): string
     {
-        return Storage::disk('public')->url($this->location);
+        return $this->getMediaUrl();
+    }
 
+    public function getMediaUrl(): string
+    {
+        return route('media.show', $this->id);
     }
 
     // get directory

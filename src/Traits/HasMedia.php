@@ -36,46 +36,31 @@ trait HasMedia
         return $this->morphMany(Media::class, 'model');
     }
 
-    public function medias(): MorphMany
-    {
-        return $this->media();
-    }
 
-    public function getImageUrlAttribute(): string
+    public function getImageUrlAttribute(): ?string
     {
-        return $this->getFirstMediaUrl();
+        return $this->getCoverImageAttribute()->url ?? $this->getFirstMediaUrl();
     }
 
     // get first media url
 
-    public function getFirstMediaUrl(): string
+    public function getFirstMediaUrl(): ?string
     {
         $media = $this->getFirstMedia();
 
-        return $media ? $media->getUrl() : '';
+        return $media?->getUrl();
     }
 
     // get first media
 
     public function getFirstMedia(): null|Media|MorphMany
     {
-        return $this->media()->first();
+        return $this->media()->latest()->first();
     }
 
-    public function getImageAttribute(): array
+    public function medias(): MorphMany
     {
-
-        $image = $this->getFirstMedia();
-
-        if ($image) {
-            return [
-                'name' => $image->filename,
-                'url' => $image->url,
-                'size' => $image->size,
-            ];
-        }
-        return [];
-
+        return $this->media();
     }
 
     public function delete(): bool
@@ -94,12 +79,5 @@ trait HasMedia
         } else {
             return parent::delete();
         }
-    }
-
-    public function getImageSmallAttribute(): string
-    {
-        $first_image = $this->media()->latest()->first();
-
-        return $first_image ? $first_image->path : asset('images/no-image.png');
     }
 }
