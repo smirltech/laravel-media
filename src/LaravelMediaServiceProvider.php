@@ -2,16 +2,24 @@
 
 namespace SmirlTech\LaravelMedia;
 
-use Illuminate\Support\ServiceProvider;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LaravelMediaServiceProvider extends ServiceProvider
+class LaravelMediaServiceProvider extends PackageServiceProvider
 {
-    public function boot()
+    public function configurePackage(Package $package): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        /*$this->loadViewsFrom(__DIR__ . '/../resources/views', 'laravel-media');
-
-        Livewire::component('media-attachment', MediaAttachment::class);*/
+        /*
+         * This class is a Package Service Provider
+         *
+         * More info: https://github.com/spatie/laravel-package-tools
+         */
+        $package
+            ->name('laravel-media')
+            //->hasConfigFile()
+            ->hasViews()
+            ->hasMigration('2023_01_03_100000_create_media_table')
+            ->runsMigrations()
+            ->hasRoutes('web');
     }
 }

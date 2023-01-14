@@ -1,10 +1,10 @@
 <form wire:submit.prevent="save">
-    <x-laravel-media::form-file wire:model="media" multiple/>
+    <x-media::form-file wire:model="media"/>
 
-    <x-laravel-media::list-files :media="$media" delete/>
+    <x-media::list-files :media="$media"/>
 
-    <x-laravel-media::form-button type="submit" class="btn-primary">
+    <x-media::form-button type="submit" class="btn-primary">
         {{__('Save')}}
-    </x-laravel-media::form-button>
+    </x-media::form-button>
 
 </form>
