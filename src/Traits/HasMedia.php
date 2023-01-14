@@ -36,6 +36,11 @@ trait HasMedia
         return $this->morphMany(Media::class, 'model');
     }
 
+    public function getImageAttribute(): ?string
+    {
+        return $this->getImageUrlAttribute();
+    }
+
 
     public function getImageUrlAttribute(): ?string
     {
@@ -56,11 +61,6 @@ trait HasMedia
     public function getFirstMedia(): null|Media|MorphMany
     {
         return $this->media()->latest()->first();
-    }
-
-    public function medias(): MorphMany
-    {
-        return $this->media();
     }
 
     public function delete(): bool

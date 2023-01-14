@@ -78,6 +78,11 @@ class Media extends Model
         return Storage::disk('public')->url($this->location);
     }
 
+    public function url(): string
+    {
+        return $this->getUrl();
+    }
+
     public function getUrlAttribute(): string
     {
         return $this->getMediaUrl();
@@ -108,6 +113,12 @@ class Media extends Model
         }
 
         return $directory;
+    }
+
+    /** Files exists  */
+    public function hasFile(): bool
+    {
+        return Storage::disk('public')->exists($this->location);
     }
 
 }
