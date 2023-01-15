@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('media', function (Blueprint $table) {
             $table->ulid('id')->primary();
 
-            $table->morphs('model');
+            $table->ulidMorphs('model');
             $table->string('mime_type');
 
             $table->string('filename');
