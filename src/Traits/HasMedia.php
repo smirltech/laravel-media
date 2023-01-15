@@ -44,7 +44,7 @@ trait HasMedia
 
     public function getImageUrlAttribute(): ?string
     {
-        return $this->getCoverImageAttribute()->url ?? $this->getFirstMediaUrl();
+        return $this->getMainImageUrl() ?? $this->getFirstMediaUrl();
     }
 
     // get first media url
