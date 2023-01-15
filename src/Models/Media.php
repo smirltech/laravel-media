@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Storage;
 use Nette\Utils\Json;
+use Nette\Utils\JsonException;
 use SmirlTech\LaravelMedia\Traits\HasResizeImage;
 
 
@@ -33,14 +34,23 @@ class Media extends Model
         return $this->model();
     }
 
+
     public function model(): MorphTo
     {
         return $this->morphTo();
     }
 
+    /** get media where mime type is image */
+    public function scopeImages($query)
+    {
+        return $query->where('mime_type', 'like', 'image/%');
+    }
+
     /**
      * Set custom_property attribute for backward compatibility
-     * @return string
+     * @param $value
+     * @return void
+     * @throws JsonException
      */
     public function setCustomPropertyAttribute($value): void
     {
@@ -50,13 +60,7 @@ class Media extends Model
 
     public function getPathAttribute(): string
     {
-        return $this->getUrlAttribute();
-    }
-
-    public function getUrlAttribute(): string
-    {
-        return Storage::disk('public')->url($this->location);
-
+        return Storage::disk('public')->path($this->location);
     }
 
     public function delete(): ?bool
@@ -69,11 +73,35 @@ class Media extends Model
 
     }
 
-    // get Url
-
     public function getUrl(): string
     {
-        return $this->getUrlAttribute();
+        return Storage::disk('public')->url($this->location);
+    }
+
+    public function url(): string
+    {
+        return $this->getUrl();
+    }
+
+    public function getUrlAttribute(): string
+    {
+        return $this->getMediaUrl();
+    }
+
+    public function getMediaUrl(): string
+    {
+        return route('media.show', $this->id);
+    }
+
+    public function isMainImage(): bool
+    {
+        return $this->id == $this->model->media_id;
+    }
+
+    // set main image
+    public function makeMainImage(): bool
+    {
+        return $this->model->setMainImage($this);
     }
 
     // get directory
@@ -96,6 +124,12 @@ class Media extends Model
         }
 
         return $directory;
+    }
+
+    /** Files exists  */
+    public function hasFile(): bool
+    {
+        return Storage::disk('public')->exists($this->location);
     }
 
 }

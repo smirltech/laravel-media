@@ -2,6 +2,7 @@
 
 namespace SmirlTech\LaravelMedia\Traits;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\UploadedFile;
@@ -28,49 +29,44 @@ trait HasMedia
     }
 
 
-    // set image attribute
+    // is main image
 
-
-    public function media()
+    public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'model');
     }
 
-    public function getImageUrlAttribute(): string
+
+    public function getImageAttribute(): ?string
     {
-        return $this->getFirstMediaUrl();
+        return $this->getImageUrlAttribute();
+    }
+
+
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->mainImage?->url ?? $this->getFirstMediaUrl();
+    }
+
+    public function getFirstMediaUrl(): ?string
+    {
+        $media = $this->getFirstMedia();
+
+        return $media?->getUrl();
     }
 
     // get first media url
 
-    public function getFirstMediaUrl(): string
+    public function getFirstMedia(): null|Media|MorphMany
     {
-        $media = $this->getFirstMedia();
-
-        return $media ? $media->getUrl() : '';
+        return $this->media()->latest()->first();
     }
 
     // get first media
 
-    public function getFirstMedia(): null|Media|MorphMany
+    public function getImagesAttribute(): ?Collection
     {
-        return $this->media()->first();
-    }
-
-    public function getImageAttribute(): array
-    {
-
-        $image = $this->getFirstMedia();
-
-        if ($image) {
-            return [
-                'name' => $image->filename,
-                'url' => $image->url,
-                'size' => $image->size,
-            ];
-        }
-        return [];
-
+        return $this->media()->images()->get();
     }
 
     public function delete(): bool
@@ -89,12 +85,5 @@ trait HasMedia
         } else {
             return parent::delete();
         }
-    }
-
-    public function getImageSmallAttribute(): string
-    {
-        $first_image = $this->media()->latest()->first();
-
-        return $first_image ? $first_image->path : asset('images/no-image.png');
     }
 }
