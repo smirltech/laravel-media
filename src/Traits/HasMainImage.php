@@ -20,7 +20,8 @@ trait HasMainImage
     public function setMainImage(Media $media): mixed
     {
         $this->checkColumn();
-        return $this->media_id = $media->id;
+        $this->media_id = $media->id;
+        return $this->save();
     }
 
     /**
@@ -39,10 +40,21 @@ trait HasMainImage
      * @return mixed
      * @throws Exception
      */
-    public function clearMainImage(): mixed
+    public function clearMainImages(): mixed
     {
         $this->checkColumn();
-        return $this->media_id = null;
+        $this->media_id = null;
+        return $this->save();
+    }
+
+    /**
+     * Get the primary media url for the model.
+     * @return string|null
+     * @throws Exception
+     */
+    public function getMainImageUrl(): ?string
+    {
+        return $this->getMainImageAttribute()?->getUrl();
     }
 
     /**
@@ -50,17 +62,7 @@ trait HasMainImage
      */
     public function getMainImageAttribute(): ?Media
     {
-        $this->checkColumn();
         return $this->media()->find($this->media_id);
-    }
-
-    /**
-     * Get the primary media url for the model.
-     * @return mixed
-     */
-    public function getMainImageUrl(): mixed
-    {
-        return $this->getMainImage()->getUrl();
     }
 
 

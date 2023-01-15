@@ -2,6 +2,7 @@
 
 namespace SmirlTech\LaravelMedia\Traits;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\UploadedFile;
@@ -28,13 +29,13 @@ trait HasMedia
     }
 
 
-    // set image attribute
-
+    // is main image
 
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'model');
     }
+
 
     public function getImageAttribute(): ?string
     {
@@ -44,10 +45,8 @@ trait HasMedia
 
     public function getImageUrlAttribute(): ?string
     {
-        return $this->getMainImageUrl() ?? $this->getFirstMediaUrl();
+        return $this->mainImage?->url ?? $this->getFirstMediaUrl();
     }
-
-    // get first media url
 
     public function getFirstMediaUrl(): ?string
     {
@@ -56,11 +55,18 @@ trait HasMedia
         return $media?->getUrl();
     }
 
-    // get first media
+    // get first media url
 
     public function getFirstMedia(): null|Media|MorphMany
     {
         return $this->media()->latest()->first();
+    }
+
+    // get first media
+
+    public function getImagesAttribute(): ?Collection
+    {
+        return $this->media()->images()->get();
     }
 
     public function delete(): bool

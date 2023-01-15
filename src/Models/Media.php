@@ -93,6 +93,17 @@ class Media extends Model
         return route('media.show', $this->id);
     }
 
+    public function isMainImage(): bool
+    {
+        return $this->id == $this->model->media_id;
+    }
+
+    // set main image
+    public function makeMainImage(): bool
+    {
+        return $this->model->setMainImage($this);
+    }
+
     // get directory
 
     public function getDirectory(): string
