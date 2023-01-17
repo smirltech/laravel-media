@@ -15,7 +15,7 @@ class GalleryComponent extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('media::gallery-component');
+        return view('media::livewire.gallery-component');
     }
 
     public function delete($id)
@@ -24,16 +24,10 @@ class GalleryComponent extends Component
         $image->delete();
     }
 
-    public function mount(string $model_type, string $model_id)
+    public function mount(string $model_type, int $model_id)
     {
-
-        if ($model_id && $model_type) {
-            $this->images = Media::images()->where('model_id', $model_id)
-                ->where('model_type', $model_type->class())
-                ->get();
-        } else {
-            $this->images = Media::images()->get();
-        }
+        $model = $model_type::find($model_id);
+        $this->images = $model->media()->images()->get();
     }
 
     public function setMain($id)

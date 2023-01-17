@@ -14,10 +14,12 @@
                         @if(!$image->isMainImage())
                             <div class="card-img-overlay d-flex justify-content-between align-items-end">
                                 <div>
-                                    <button wire:click="setMain('{{$image->id}}')"
-                                            class="btn btn-primary btn-sm main-btn">
-                                        <i class="fa fa-star"></i>
-                                    </button>
+                                    @if($image->canBeMainImage())
+                                        <button wire:click="setMain('{{$image->id}}')"
+                                                class="btn btn-primary btn-sm main-btn">
+                                            <i class="fa fa-star"></i>
+                                        </button>
+                                    @endif
                                 </div>
                                 <div>
                                     <button wire:click="delete('{{$image->id}}')"

@@ -20,7 +20,6 @@ class LaravelMediaServiceProvider extends PackageServiceProvider
             ->name('laravel-media')
             //->hasConfigFile()
             ->hasViews()
-            //  ->hasViewComponents('gallery-component', GalleryComponent::class)
             ->hasMigration('2023_01_03_100000_create_media_table')
             ->runsMigrations()
             ->hasRoutes('web');
