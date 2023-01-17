@@ -24,10 +24,14 @@ class GalleryComponent extends Component
         $image->delete();
     }
 
-    public function mount(string $model_type, int $model_id)
+    public function mount(?string $model_type, ?int $model_id)
     {
-        $model = $model_type::find($model_id);
-        $this->images = $model->media()->images()->get();
+        if ($model_id && $model_type) {
+            $model = $model_type::find($model_id);
+            $this->images = $model->media()->images()->get();
+        } else {
+            $this->images = Media::images()->get();
+        }
     }
 
     public function setMain($id)

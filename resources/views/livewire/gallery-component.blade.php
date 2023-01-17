@@ -42,3 +42,25 @@
         </div>
     </div>
 </div>
+<style>
+    .card-img-overlay {
+        visibility: hidden;
+        transition: visibility 0.2s;
+    }
+
+    .card:hover {
+        visibility: visible;
+    }
+
+    .card-img-overlay {
+        display: none;
+    }
+
+    .card:hover .card-img-overlay {
+        visibility: visible;
+    }
+
+    /* .card:hover .delete-btn, .card:hover .main-btn {
+         display: inline-block;
+     }*/
+</style>
