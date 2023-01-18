@@ -5,6 +5,7 @@ namespace SmirlTech\LaravelMedia\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
@@ -102,6 +103,12 @@ class Media extends Model
     public function makeMainImage(): bool
     {
         return $this->model->setMainImage($this);
+    }
+
+    public function canBeMainImage(): bool
+    {
+        // if the model has a media_id column
+        return Schema::hasColumn($this->model->getTable(), 'media_id');
     }
 
     // get directory

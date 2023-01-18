@@ -11,7 +11,6 @@ trait HasMainImage
 {
     use HasMedia;
 
-
     /**
      * Set the primary media for the model.
      * @return mixed
