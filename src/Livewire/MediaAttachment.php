@@ -23,7 +23,7 @@ class MediaAttachment extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('laravel-media::livewire.media-attachment');
+        return view('media::livewire.media-attachment');
     }
 
     #[NoReturn] public function mount(mixed $model, string $rules = 'max:1024', mixed $collection = 'default')
