@@ -29,9 +29,14 @@ trait HasMainImage
      */
     private function checkColumn(): void
     {
-        if (!Schema::hasColumn($this->getTable(), 'media_id')) {
+        if (!$this->hasMainImageColumn()) {
             throw new Exception('The table ' . $this->getTable() . ' does not have a media_id column');
         }
+    }
+
+    private function hasMainImageColumn(): bool
+    {
+        return Schema::hasColumn($this->getTable(), 'media_id');
     }
 
     /**

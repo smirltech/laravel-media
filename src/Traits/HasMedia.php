@@ -24,6 +24,7 @@ trait HasMedia
             'filename' => $file->getClientOriginalName(),
             'location' => $file->store("{$entity->getTable()}/{$entity->id}/{$collection_name}", 'public'),
             'custom_properties' => $custom_properties,
+            'collection_name' => $collection_name,
             'size' => $file->getSize(),
         ]);
     }
