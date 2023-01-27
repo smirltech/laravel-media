@@ -22,8 +22,13 @@ trait HasAvatar
      */
     public function getAvatarAttribute(): ?string
     {
-        return $this->getMainImageUrl();
+        return $this->getMainImageUrl() ?? $this->fetchAvatar($this->avatarName ?? $this->fullName);
     }
 
+    public function fetchAvatar($name, $width = 50, $height = 50): string
+    {
+        $name = str_replace(' ', '+', $name);
+        return "https://ui-avatars.com/api/?name={$name}&background=random&size={$width}x{$height}&color=random";
+    }
 
 }
