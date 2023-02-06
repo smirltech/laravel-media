@@ -12,7 +12,12 @@ use SmirlTech\LaravelMedia\Models\Media;
 trait HasMedia
 {
 
-    public function AddMedia(UploadedFile $file, string $collection_name): Media
+    public function addImage(UploadedFile $file): Media
+    {
+        return $this->addMedia(file: $file, collection_name: 'images');
+    }
+
+    public function addMedia(UploadedFile $file, string $collection_name): Media
     {
         return $this->upload(file: $file, entity: $this, collection_name: $collection_name);
     }
@@ -24,6 +29,7 @@ trait HasMedia
             'filename' => $file->getClientOriginalName(),
             'location' => $file->store("{$entity->getTable()}/{$entity->id}/{$collection_name}", 'public'),
             'custom_properties' => $custom_properties,
+            'collection_name' => $collection_name,
             'size' => $file->getSize(),
         ]);
     }
