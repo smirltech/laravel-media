@@ -22,7 +22,7 @@ trait HasAvatar
      */
     public function getAvatarAttribute(): ?string
     {
-        return $this->getMainImageUrl() ?? $this->fetchAvatar($this->avatarName ?? $this->fullName);
+        return $this->getMainImageUrl() ?? $this->fetchAvatar($this->avatarName ?? $this->fullName ?? $this->name ?? $this->nom ?? 'User');
     }
 
     public function fetchAvatar($name, $width = 50, $height = 50): string

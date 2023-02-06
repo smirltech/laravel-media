@@ -96,7 +96,7 @@ class Media extends Model
 
     public function isMainImage(): bool
     {
-        return $this->id == $this->model->media_id;
+        return !($this->model->media->count() > 1) || $this->id == $this->model->media_id;
     }
 
     // set main image
