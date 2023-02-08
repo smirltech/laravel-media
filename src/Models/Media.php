@@ -64,13 +64,14 @@ class Media extends Model
         return Storage::disk('public')->path($this->location);
     }
 
-    public function delete(): ?bool
+    public function delete(): bool
     {
         $bool = Storage::disk('public')->delete($this->location);
 
         if ($bool) {
             return parent::delete();
         }
+        return false;
 
     }
 

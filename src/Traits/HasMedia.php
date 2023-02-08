@@ -81,7 +81,7 @@ trait HasMedia
         if (is_string($media)) {
             $media = $this->media()->find($media);
         }
-        $media->delete();
+        return $media->delete();
     }
 
     public function delete(): bool
