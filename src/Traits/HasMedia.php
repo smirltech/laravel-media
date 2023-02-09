@@ -75,6 +75,15 @@ trait HasMedia
         return $this->media()->images()->get();
     }
 
+    // delete media
+    public function deleteMedia(Media|string $media): bool
+    {
+        if (is_string($media)) {
+            $media = $this->media()->find($media);
+        }
+        return $media->delete();
+    }
+
     public function delete(): bool
     {
         // prepare directory
