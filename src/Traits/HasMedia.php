@@ -57,7 +57,7 @@ trait HasMedia
     {
         $media = $this->getFirstMedia();
 
-        return $media?->getUrl();
+        return $media?->url;
     }
 
     public function getFirstMedia(): null|Media|MorphMany
