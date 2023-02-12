@@ -48,7 +48,6 @@ trait HasMedia
         return $this->getImageUrlAttribute();
     }
 
-
     public function getImageUrlAttribute(): ?string
     {
         return $this->mainImage?->url ?? $this->getFirstMediaUrl();
@@ -61,11 +60,16 @@ trait HasMedia
         return $media?->getUrl();
     }
 
-    // get first media url
-
     public function getFirstMedia(): null|Media|MorphMany
     {
         return $this->media()->latest()->first();
+    }
+
+    // get first media url
+
+    public function getImageSmallAttribute(): ?string
+    {
+        return $this->getImageUrlAttribute() . "?width=100&height=100";
     }
 
     // get first media

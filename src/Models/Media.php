@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use Image;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 use SmirlTech\LaravelMedia\Traits\HasResizeImage;
+use Str;
 
 
 /**
@@ -59,6 +61,15 @@ class Media extends Model
         return Storage::disk('public')->path($this->location);
     }
 
+    public function getImageResponse(?int $width, ?int $height): mixed
+    {
+        $image = Image::make($this->path);
+        if ($width or $height) {
+            $image = $this->resizeImage($this->path, $width, $height);
+        }
+        return $image->response();
+    }
+
     public function delete(): bool
     {
         $bool = Storage::disk('public')->delete($this->location);
@@ -92,7 +103,7 @@ class Media extends Model
 
     public function isMainImage(): bool
     {
-        return !($this->model?->media?->count() > 1) || $this->id == $this->model?->media_id;
+        return !($this->model->media->count() > 1) || $this->id == $this->model->media_id;
     }
 
     // set main image
@@ -133,6 +144,11 @@ class Media extends Model
     public function hasFile(): bool
     {
         return Storage::disk('public')->exists($this->location);
+    }
+
+    public function isImage(): bool
+    {
+        return Str::contains($this->mime_type, 'image');
     }
 
 }
