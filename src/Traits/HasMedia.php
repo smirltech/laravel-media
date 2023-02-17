@@ -105,4 +105,9 @@ trait HasMedia
             return parent::delete();
         }
     }
+
+    public function deleteAllMedia(): void
+    {
+        $this->media->each->delete();
+    }
 }
