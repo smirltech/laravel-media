@@ -108,9 +108,10 @@ trait HasMedia
 
     public function deleteAllMedia(?string $collection_name = null): void
     {
-        if ($collection_name)
+        if ($collection_name) {
             $this->media()->where('collection_name', $collection_name)->delete();
-        else
+        } else {
             $this->media->each->delete();
+        }
     }
 }
