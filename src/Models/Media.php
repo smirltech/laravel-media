@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use Image;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 use SmirlTech\LaravelMedia\Traits\HasResizeImage;
+use Str;
 
 
 /**
@@ -29,11 +31,6 @@ class Media extends Model
     protected $casts = [
         'custom_properties' => 'array',
     ];
-
-    public function mediable(): MorphTo
-    {
-        return $this->model();
-    }
 
 
     public function model(): MorphTo
@@ -62,6 +59,15 @@ class Media extends Model
     public function getPathAttribute(): string
     {
         return Storage::disk('public')->path($this->location);
+    }
+
+    public function getImageResponse(?int $width, ?int $height): mixed
+    {
+        $image = Image::make($this->path);
+        if ($width or $height) {
+            $image = $this->resizeImage($this->path, $width, $height);
+        }
+        return $image->response();
     }
 
     public function delete(): bool
@@ -138,6 +144,11 @@ class Media extends Model
     public function hasFile(): bool
     {
         return Storage::disk('public')->exists($this->location);
+    }
+
+    public function isImage(): bool
+    {
+        return Str::contains($this->mime_type, 'image');
     }
 
 }

@@ -48,7 +48,6 @@ trait HasMedia
         return $this->getImageUrlAttribute();
     }
 
-
     public function getImageUrlAttribute(): ?string
     {
         return $this->mainImage?->url ?? $this->getFirstMediaUrl();
@@ -58,14 +57,19 @@ trait HasMedia
     {
         $media = $this->getFirstMedia();
 
-        return $media?->getUrl();
+        return $media?->url;
     }
-
-    // get first media url
 
     public function getFirstMedia(): null|Media|MorphMany
     {
         return $this->media()->latest()->first();
+    }
+
+    // get first media url
+
+    public function getImageSmallAttribute(): ?string
+    {
+        return $this->getImageUrlAttribute() . "?width=100&height=100";
     }
 
     // get first media
@@ -99,6 +103,15 @@ trait HasMedia
             }
         } else {
             return parent::delete();
+        }
+    }
+
+    public function deleteAllMedia(?string $collection_name = null): void
+    {
+        if ($collection_name) {
+            $this->media()->where('collection_name', $collection_name)->delete();
+        } else {
+            $this->media->each->delete();
         }
     }
 }
