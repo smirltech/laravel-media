@@ -14,14 +14,13 @@ trait HasResizeImage
 
     // add watermark
 
-    public function resizeImage(Image $image, int $width, ?string $path): void
+    public function resizeImage(string|Image $image, int $width, ?int $height): Image
     {
-        $image->resize($width, function ($constraint) {
+        return \Intervention\Image\Facades\Image::make($image)->resize($width, $height, function ($constraint) {
             $constraint->aspectRatio();
         });
-        if ($path) {
-            $image->save($path);
-        }
+
+
     }
 
     // create thumbnail with  default size and preserve aspect ratio and add watermark
