@@ -1,7 +1,7 @@
-@props(['model','edit'=>true,'size' => 100])
+@props(['model','edit'=>true,'size' => 100,'refresh'=>true])
 <div
     @if($edit)
-        wire:click="$emit('showModal', 'profile.edit-avatar-modal', '{{ class_basename($model) }}','{{ $model->id }}')"
+        onclick="openAvatarModal('{{ class_basename($model) }}','{{ $model->id }}')"
     @endif
     class="img text-center">
     @if($edit)
@@ -26,3 +26,18 @@
         color: white;
     }
 </style>
+<script>
+    function openAvatarModal(model, id) {
+        console.log('openAvatarModal', model, id);
+        Livewire.emit('showModal', 'media::avatar-component', model, id);
+    }
+</script>
+@if($refresh)
+    @push('js')
+        <script>
+            Livewire.on('avatarUpdated', () => {
+                window.location.reload();
+            });
+        </script>
+    @endpush
+@endif

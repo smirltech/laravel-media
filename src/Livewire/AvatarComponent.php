@@ -40,7 +40,7 @@ class AvatarComponent extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.avatar-component');
+        return view('media::livewire.avatar-component');
     }
 
     //submit

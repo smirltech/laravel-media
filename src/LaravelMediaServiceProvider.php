@@ -3,6 +3,7 @@
 namespace SmirlTech\LaravelMedia;
 
 use Livewire\Livewire;
+use SmirlTech\LaravelMedia\Livewire\AvatarComponent;
 use SmirlTech\LaravelMedia\Livewire\GalleryComponent;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -19,17 +20,16 @@ class LaravelMediaServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-media')
             //->hasConfigFile()
-            //->hasViews()
+            ->hasViews()
             ->hasMigration('2023_01_03_100000_create_media_table')
             ->runsMigrations()
             ->hasRoutes('web');
 
     }
 
-    public function bootingPackage()
+    public function bootingPackage(): void
     {
-        parent::bootingPackage();
-
         Livewire::component('media::gallery-component', GalleryComponent::class);
+        Livewire::component('media::avatar-component', AvatarComponent::class);
     }
 }
