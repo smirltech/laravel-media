@@ -1,4 +1,4 @@
-@props(['model','edit'=>true,'size' => 100,'refresh'=>true])
+@props(['model','edit'=>false,'size' => 100,'refresh'=>true])
 <div
     @if($edit)
         onclick="openAvatarModal('{{ class_basename($model) }}','{{ $model->id }}')"
