@@ -6,5 +6,4 @@
     <x-media::form-button type="submit" class="btn-primary">
         {{__('Save')}}
     </x-media::form-button>
-
 </form>
