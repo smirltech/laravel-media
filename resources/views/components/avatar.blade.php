@@ -10,7 +10,7 @@
    </span>
     @endif
     <img style="width:{{$size}}px; height:auto; border-radius: 50%" class="profile-user-img img-fluid img-circle"
-         src="{{$model->avatar}}"
+         src="{{$model?->avatar}}"
          alt="User profile picture">
 </div>
 <style>
