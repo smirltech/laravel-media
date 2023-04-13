@@ -62,7 +62,7 @@ class Media extends Model
     }
 
     /**
-     * Get font awesome icon name from mime type
+     * Get fontawesome icon name from mime type
      * @return string
      */
     public function getIconAttribute(): string
