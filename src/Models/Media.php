@@ -61,6 +61,24 @@ class Media extends Model
         return Storage::disk('public')->path($this->location);
     }
 
+    /**
+     * Get fontawesome icon name from mime type
+     * @return string
+     */
+    public function getIconAttribute(): string
+    {
+        return match ($this->mime_type) {
+            'application/pdf' => 'file-pdf',
+            'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'file-word',
+            'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'file-excel',
+            'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'file-powerpoint',
+            'application/zip', 'application/x-7z-compressed', 'application/x-rar-compressed' => 'file-archive',
+            'text/plain' => 'file-alt',
+            'image/jpg', 'image/jpeg' => 'image',
+            default => 'file',
+        };
+    }
+
     public function getImageResponse(?int $width, ?int $height): mixed
     {
         $image = Image::make($this->path);
