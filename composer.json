@@ -20,7 +20,7 @@
         "illuminate/contracts": "^10.0|^9.0|^8.0",
         "intervention/image": "^2.7",
         "livewire/livewire": "^2.10",
-        "smirltech/laravel-form": "^2.1",
+        "smirltech/laravel-form": "*",
         "spatie/laravel-package-tools": "^1.14"
     },
     "require-dev": {
