@@ -12,9 +12,9 @@ trait HasDeleteMedia
             $this->emit('mediaDeleted');
             $this->emit('refresh');
 
-           if(method_exists($this, 'success')){
+           /*if(method_exists($this, 'success')){
                $this->success(message: 'Le document a été supprimé avec succès');
-           }
+           }*/
         }
     }
 

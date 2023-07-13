@@ -8,7 +8,7 @@
                href="{{route('media.show', $m)}}"
                target="_blank">{{$m->filename}}</a>
             @if($delete)
-                | <i title="Supprimer" wire:click="deleteMedia('{{$m->id}}')"
+                | <i title="Supprimer" wire:loading.remove wire:target="deleteMedia" wire:click="deleteMedia('{{$m->id}}')"
                      class="fa fa-times-circle text-danger"></i>
             @endif
 
