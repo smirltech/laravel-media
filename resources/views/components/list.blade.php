@@ -1,4 +1,5 @@
-@props(['media','delete' => false])
+@props(['media'=>[],'model'=>null,'delete' => false])
+@php($media=$model?->$media?:$media)
 <ol class="list-group mt-3">
     @foreach($media as $m)
         <li class="list-group-item">
@@ -7,15 +8,10 @@
                href="{{route('media.show', $m)}}"
                target="_blank">{{$m->filename}}</a>
             @if($delete)
-                |
-                <button type="button" class="btn btn-sm btn-outline-danger">
-                    <i wire:click="deleteMedia('{{$m->id}}')"
-                       class="fa fa-minus"></i>
-                </button>
+                | <i title="Supprimer" wire:click="deleteMedia('{{$m->id}}')"
+                     class="fa fa-times-circle text-danger"></i>
             @endif
 
         </li>
     @endforeach
 </ol>
-
-
