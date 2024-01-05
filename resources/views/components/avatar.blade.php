@@ -9,9 +9,9 @@
         <i class="fa fa-camera-alt"></i>
    </span>
     @endif
-    <img style="width:{{$size}}px; height:auto; border-radius: 50%" class="profile-user-img img-fluid img-circle"
+    <img style="width:{{$size}}px; height:{{$size}}px;border-radius: 50%;object-fit: cover"
          src="{{$model?->avatar}}"
-         alt="User profile picture">
+         alt="Picture">
 </div>
 <style>
     .img {
