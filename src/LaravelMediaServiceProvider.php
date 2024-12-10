@@ -19,7 +19,7 @@ class LaravelMediaServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-media')
-            ->hasConfigFile('media')
+            ->hasConfigFile()
             ->hasViews()
             ->hasMigration('2023_01_03_100000_create_media_table')
             ->runsMigrations(config('laravel-media.runs_migrations', true))
