@@ -17,17 +17,36 @@ trait HasMedia
         return $this->addMedia(file: $file, collection_name: 'images');
     }
 
-    public function addMedia(UploadedFile $file, ?string $collection_name = null): Media
+    public function addMedia(
+        UploadedFile $file,
+        ?string $collection_name = null,
+        ?string $path = null,
+    ): Media
     {
-        return $this->upload(file: $file, entity: $this, collection_name: $collection_name ?? 'default');
+        return $this->upload(
+            file: $file,
+            entity: $this,
+            collection_name: $collection_name ?? 'default',
+            path: $path,
+        );
     }
 
-    public function upload(UploadedFile $file, Model $entity, string $collection_name, string $custom_properties = null): Media
+    public function upload(
+        UploadedFile $file,
+        Model $entity,
+        string $collection_name,
+        string $custom_properties = null,
+        string $path=null
+    ): Media
     {
+        if($path == null){
+            $path = "{$entity->getTable()}/{$entity->id}/{$collection_name}";
+        }
+
         return $entity->media()->create([
             'mime_type' => $file->getMimeType(),
             'filename' => $file->getClientOriginalName(),
-            'location' => $file->store("{$entity->getTable()}/{$entity->id}/{$collection_name}", 'public'),
+            'location' => $file->store(path: $path, options: 'public'),
             'custom_properties' => $custom_properties,
             'collection_name' => $collection_name,
             'size' => $file->getSize(),
