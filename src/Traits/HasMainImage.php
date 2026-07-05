@@ -66,7 +66,7 @@ trait HasMainImage
      */
     public function getMainImageAttribute(): ?Media
     {
-        return $this->media()->find($this->media_id);
+        return $this->media()->find($this->media_id??null);
     }
 
 
