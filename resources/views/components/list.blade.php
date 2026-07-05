@@ -11,7 +11,7 @@
                     |
                     <button type="button" class="btn btn-sm btn-outline-danger">
                         <i wire:click="deleteMedia('{{$m->id}}')"
-                           class="fa fa-minus"></i>
+                           class="fa fa-trash-alt"></i>
                     </button>
                 @endif
 
@@ -27,7 +27,7 @@
                 |
                 <button type="button" class="btn btn-sm btn-outline-danger">
                     <i wire:click="deleteMedia('{{$media->id}}')"
-                       class="fa fa-minus"></i>
+                       class="fa fa-trash-alt"></i>
                 </button>
             @endif
         </li>
